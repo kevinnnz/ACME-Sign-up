@@ -1,0 +1,101 @@
+<br />
+<div class="uk-flex uk-flex-center">
+    <h1>Acme Activity Sign-up</h1>
+</div>
+<div class="uk-flex uk-flex-center" *ngIf="!FormSubmitted">
+    <div class="uk-width-1-2 uk-card uk-card-default uk-card-body">
+        <form class="uk-form-stacked" #signupForm="ngForm" (ngSubmit)="submit($event, signupForm.value)">
+            <div class="uk-margin form-group">
+                <label class="uk-form-label" for="firstName">First Name</label>
+                <div class="uk-form-controls">
+                    <input 
+                        required
+                        minlength="2"
+                        class="uk-input form-control" 
+                        id="firstName"
+                        name="firstName"
+                        #firstName="ngModel"
+                        type="text" 
+                        placeholder="First Name" 
+                        ngModel
+                    >
+                    <div class="uk-alert uk-alert-danger" *ngIf="firstName.touched && !firstName.valid">
+                        First name is not valid.
+                    </div>
+                </div>
+            </div>
+            <div class="uk-margin">
+                <label class="uk-form-label" for="lastName">Last Name</label>
+                <div class="uk-form-controls">
+                    <input 
+                        required
+                        class="uk-input form-control" 
+                        id="lastName" 
+                        name="lastName"
+                        #lastName="ngModel"
+                        type="text" 
+                        placeholder="Last Name" 
+                        ngModel
+                    >
+                    <div class="uk-alert uk-alert-danger" *ngIf="lastName.touched && !lastName.valid">
+                        Last name is not valid.
+                    </div>
+                </div>
+            </div>
+            <div class="uk-margin">
+                <label class="uk-form-label" for="email">Email</label>
+                <div class="uk-form-controls">
+                    <input 
+                        required
+                        class="uk-input form-control" 
+                        id="email"
+                        name="email"
+                        type="email"
+                        #email="ngModel"
+                        placeholder="Email" 
+                        ngModel
+                    >
+                    <div class="uk-alert uk-alert-danger" *ngIf="email.touched && !email.valid">
+                        Email is not valid.
+                    </div>
+                </div>
+            </div>
+            <div class="uk-margin">
+                <label class="uk-form-label" for="activity">Activity</label>
+                <select class="uk-select form-control" name="activity" (change)="changeActivity($event)" ngModel>
+                    <option [value]="act.id" *ngFor="let act of ActivitiesList">
+                        {{act.activityName}}
+                    </option>
+                </select>
+            </div>
+            <div class="uk-margin">
+                <label class="uk-form-label" for="email">Comment</label>
+                <div class="uk-form-controls">
+                    <input 
+                        required
+                        class="uk-input form-control" 
+                        id="comment"
+                        name="comment"
+                        type="comment"
+                        #comment="ngModel"
+                        placeholder="Comment" 
+                        ngModel
+                    >
+                    <div class="uk-alert uk-alert-danger" *ngIf="comment.touched && !comment.valid">
+                        comment is not valid.
+                    </div>
+                </div>
+            </div>
+            <div class="uk-margin">
+                <button class="uk-button uk-button-primary" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="uk-flex uk-flex-center" *ngIf="FormSubmitted">
+    <div class="uk-width-1-2 uk-card uk-card-default uk-card-body">
+        <ul class="uk-list" *ngFor="let signups of ActivitiesSignups">
+            <li>{{ signups.employee.firstName + ' ' + signups.employee.lastName }}</li>
+        </ul>
+    </div>
+</div>
